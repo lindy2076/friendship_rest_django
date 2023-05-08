@@ -31,18 +31,18 @@ class TestAuthApi:
         assert response.status_code == 200
 
         token = response.json().get('access_token')
-        header =  {'HTTP_AUTHORIZATION': 'Bearer ' + token}
+        header = {'HTTP_AUTHORIZATION': 'Bearer ' + token}
         response = client.get('/api/v1/auth/whoami', **header)
         assert response.status_code == 200
         assert response.json().get('username') == data.get('username')
-    
+
     @pytest.mark.django_db
     def test_whoami(self, auth_client_user1, user1):
         response = auth_client_user1.get('/api/v1/auth/whoami')
         assert response.status_code == 200
         assert response.json().get('username') == user1[0].get('username')
         assert response.json().get('id') == str(user1[1].id)
-    
+
     @pytest.mark.django_db
     def test_whoami_unauthorized(self, client):
         response = client.get('/api/v1/auth/whoami')
@@ -55,10 +55,10 @@ class TestAuthApi:
         with freeze_time(test_date):
             response = client.post('/api/v1/auth/login', user_data)
             token = response.json().get('access_token')
-            header =  {'HTTP_AUTHORIZATION': 'Bearer ' + token}
+            header = {'HTTP_AUTHORIZATION': 'Bearer ' + token}
             response = client.get('/api/v1/auth/whoami', **header)
             assert response.status_code == 200
-        
+
         with freeze_time(
             datetime.fromisoformat(test_date) + timedelta(seconds=JWT_LIVE_TIME_MINUTES * 60 - 1)
         ):

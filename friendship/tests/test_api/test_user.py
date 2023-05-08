@@ -13,7 +13,7 @@ class TestUserApi:
         assert len(response.json()) == 2
         for userdata in response.json():
             assert userdata.get('username') in usernames
-    
+
     @pytest.mark.django_db
     def test_get_specific_user_by_id(self, client, user1):
         user_data, user_in_db = user1
@@ -33,7 +33,7 @@ class TestUserApi:
         assert response.status_code == 200
         assert response.json().get('id') == str(user_in_db.id)
         assert response.json().get('username') == user_data.get('username')
-    
+
     @pytest.mark.django_db
     def test_get_user_by_random_uuid(self, client):
         user_id = str(uuid4())

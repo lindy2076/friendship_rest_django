@@ -20,7 +20,7 @@ def get_all_users(request):
     return User.objects.all()
 
 
-@user.get('/{username}', response={200:Optional[UserSchema], 404: Message})
+@user.get('/{username}', response={200: Optional[UserSchema], 404: Message})
 def get_specific_user_by_nickname(request, username: str):
     """
     Получить конкретного пользователя (ник, айди) по нику
@@ -28,7 +28,7 @@ def get_specific_user_by_nickname(request, username: str):
     return get_object_or_404(User, username=username)
 
 
-@user.get('/id/{user_id}', response={200:Optional[UserSchema], 404: Message})
+@user.get('/id/{user_id}', response={200: Optional[UserSchema], 404: Message})
 def get_specific_user_by_id(request, user_id: UUID):
     """
     Получить конкретного пользователя (ник, айди) по uuid

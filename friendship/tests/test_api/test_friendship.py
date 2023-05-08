@@ -2,9 +2,10 @@ import pytest
 
 from user import models as user_models
 from friendship_service import (
-    schemas as friendsip_schemas, 
+    schemas as friendsip_schemas,
     models as friendship_models
 )
+
 
 class TestFriendshipApi:
     @pytest.mark.django_db
@@ -14,14 +15,14 @@ class TestFriendshipApi:
         assert len(response.json()) == 0
 
     @pytest.mark.django_db
-    def test_my_friends(self, auth_client_user1, friendship_req_u1_u2, 
+    def test_my_friends(self, auth_client_user1, friendship_req_u1_u2,
                         friendship_req_u2_u1, friendship_req_u1_u3):
         response = auth_client_user1.get('/api/v1/friends/myfriends')
         assert response.status_code == 200
         assert len(response.json()) == 1
 
     @pytest.mark.django_db
-    def test_requests(self, auth_client_user1, friendship_req_u1_u2, 
+    def test_requests(self, auth_client_user1, friendship_req_u1_u2,
                       friendship_req_u2_u1, friendship_req_u4_u1, friendship_req_u1_u3,
                       user1, user2, user3, user4):
         response = auth_client_user1.get('/api/v1/friends/requests')
@@ -34,7 +35,7 @@ class TestFriendshipApi:
         assert outgoing[0].get('username') == user3[1].username
 
     @pytest.mark.django_db
-    def test_get_users_friends(self, client, user1, user2, user3, user4, 
+    def test_get_users_friends(self, client, user1, user2, user3, user4,
                                friendship_req_u1_u2, friendship_req_u2_u1, friendship_req_u1_u3):
         def check_user_is_only_friend(user2: user_models.User, response):
             assert response.status_code == 200
@@ -43,7 +44,7 @@ class TestFriendshipApi:
 
         _, user1_in_db = user1
         _, user2_in_db = user2
-        
+
         response = client.get('/api/v1/friends/' + str(user1_in_db.id) + '/all')
         check_user_is_only_friend(user2_in_db, response)
 
@@ -101,7 +102,7 @@ class TestFriendshipApi:
 
         response = auth_client_user1.post('/api/v1/friends/' + str(user2_in_db.id) + '/add')
         assert response.status_code == 200
-        
+
         response = auth_client_user1.get('/api/v1/friends/' + str(user2_in_db.id) + '/status')
         assert response.status_code == 200
         assert response.json().get('status') == friendsip_schemas.FriendshipStatus.FRIENDS
@@ -114,7 +115,8 @@ class TestFriendshipApi:
         assert response.json().get('status') == friendsip_schemas.FriendshipStatus.INCOMING
 
     @pytest.mark.django_db
-    def test_remove_friend_special_case(self, auth_client_user1, client, user2_token, user1, user2, friendship_req_u2_u1):
+    def test_remove_friend_special_case(self, auth_client_user1, client, user2_token, user1, user2,
+                                        friendship_req_u2_u1):
         _, user1_in_db = user1
         _, user2_in_db = user2
 
@@ -125,11 +127,10 @@ class TestFriendshipApi:
         assert response.status_code == 200
         assert response.json().get('status') == friendsip_schemas.FriendshipStatus.FRIENDS
 
-        header =  {'HTTP_AUTHORIZATION': 'Bearer ' + user2_token}
+        header = {'HTTP_AUTHORIZATION': 'Bearer ' + user2_token}
         response = client.post('/api/v1/friends/' + str(user1_in_db.id) + '/remove', **header)
         assert response.status_code == 200
 
         response = auth_client_user1.get('/api/v1/friends/' + str(user2_in_db.id) + '/status')
         assert response.status_code == 200
         assert response.json().get('status') == friendsip_schemas.FriendshipStatus.NONE
-

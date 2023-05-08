@@ -16,7 +16,7 @@ class FriendshipStatusSchema(Schema):
     """
     Статусы дружбы: none/outgoing/incoming/friends
     """
-    status: str 
+    status: str
 
 
 class FriendshipRequestsSchema(Schema):

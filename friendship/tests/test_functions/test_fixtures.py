@@ -13,7 +13,7 @@ class TestUserFixtures:
         assert user1_in_db in query
         assert len(query) == 1
         assert user1_data.get('username') == user1_in_db.username
-    
+
     def friendship_request_exists_from_to(self, user1: user_models.User, user2: user_models.User):
         query = friendship_models.Friendship.objects.filter(user_from=user1, user_to=user2)
         assert len(query) == 1

@@ -20,4 +20,3 @@ USERS = [
         password='amogus1234'
     )
 ]
-

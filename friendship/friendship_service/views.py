@@ -37,7 +37,7 @@ def get_requests(request):
     return FriendshipRequestsSchema(incoming=incoming, outgoing=outgoing)
 
 
-@friends.get('/{user_id}/all', response=List[UserSchema], 
+@friends.get('/{user_id}/all', response=List[UserSchema],
              summary="Get User's Friends By His Id")
 def get_user_friends_by_id(request, user_id):
     """
@@ -60,7 +60,7 @@ def get_friendship_status_by_id(request, user_id):
     return FriendshipStatusSchema(status=status)
 
 
-@friends.post('/{user_id}/add', auth=AuthBearer(), 
+@friends.post('/{user_id}/add', auth=AuthBearer(),
               response={200: Message, 400: Message, 401: Message, 404: Message})
 def add_friend_by_id(request, user_id):
     """
@@ -82,5 +82,5 @@ def remove_friend_by_id(request, user_id):
     user_from = request.auth
     user_to = get_object_or_404(User, id=user_id)
     if not services.remove_from_friends(user_from, user_to):
-        return 404, {"detail": "This user is not in friends and you have no outgoing request to him"}  
+        return 404, {"detail": "This user is not in friends and you have no outgoing request to him"}
     return 200, {"detail": "ok"}

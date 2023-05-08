@@ -1,9 +1,7 @@
 import pytest
-from typing import Tuple, List, Optional 
+from typing import Tuple
 
 from django.test import Client
-
-from ninja.testing import TestClient
 
 from user import models as user_models
 from friendship_service import models as friendship_models
@@ -18,7 +16,7 @@ class FixtureUtils:
             password=user_dict.get('password')
         )
         return new_user
-    
+
     def create_friendship_request(user_from, user_to):
         new_friendship = friendship_models.Friendship.objects.create(
             user_from=user_from, user_to=user_to
@@ -60,7 +58,7 @@ def auth_client_user1(client, user1_token) -> Client:
     """
     Получаем тест клиент с авторизованным первым юзером
     """
-    client.defaults['HTTP_AUTHORIZATION'] ='Bearer ' + user1_token
+    client.defaults['HTTP_AUTHORIZATION'] = 'Bearer ' + user1_token
     return client
 
 

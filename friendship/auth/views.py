@@ -12,9 +12,9 @@ auth = Router(tags=["auth"])
 
 
 @auth.post('/register', response={200: UserSchema, 409: Message})
-def register_new_user(request, data: UserRegistrationSchema=Form(...)):
+def register_new_user(request, data: UserRegistrationSchema = Form(...)):
     """
-    Регистрация нового юзера по логину и паролю. 
+    Регистрация нового юзера по логину и паролю.
     Логин должен быть до 24 символов и может содержать только латинские буквы и цифры.
     """
     username = data.username
@@ -24,7 +24,7 @@ def register_new_user(request, data: UserRegistrationSchema=Form(...)):
 
 
 @auth.post('/login', response={200: TokenSchema, 400: Message, 404: Message})
-def login(request, data: UserRegistrationSchema=Form(...)):
+def login(request, data: UserRegistrationSchema = Form(...)):
     """
     Получить access token
     """

@@ -1,8 +1,7 @@
 from typing import List, Optional
 from uuid import UUID
 
-from django.shortcuts import render, get_object_or_404
-from django.http import Http404
+from django.shortcuts import get_object_or_404
 from ninja import Router
 
 from .models import User

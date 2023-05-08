@@ -1,5 +1,4 @@
 from typing import List, Optional
-from uuid import UUID
 
 from django.shortcuts import get_object_or_404
 from ninja import Router
@@ -8,7 +7,7 @@ from auth.jwt import AuthBearer
 from auth.schemas import Message
 
 from user.models import User
-from user.schemas import UserSchema, UserRegistrationSchema
+from user.schemas import UserSchema
 from .schemas import FriendshipStatusSchema, FriendshipRequestsSchema
 
 from . import services

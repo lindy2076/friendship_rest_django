@@ -15,6 +15,6 @@ class UserRegistrationSchema(Schema):
 
     @validator('username')
     def name_length_and_length(cls, v):
-        assert v.isalnum(), 'must be alphanumeric'
+        assert v.isalnum(), 'username must be alphanumeric'
         assert len(v) <= 24, 'username must be shorter than 24 symbols'
         return v

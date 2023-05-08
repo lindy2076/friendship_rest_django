@@ -1,6 +1,3 @@
-from typing import List, Optional
-from uuid import UUID
-
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.hashers import check_password
 from ninja import Router, Form

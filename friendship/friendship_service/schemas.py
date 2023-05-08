@@ -1,10 +1,8 @@
 from enum import Enum
-from uuid import UUID
 from typing import List
-from ninja import Schema, ModelSchema
+from ninja import Schema
 
 from user.schemas import UserSchema
-from .models import Friendship
 
 
 class FriendshipStatus(str, Enum):

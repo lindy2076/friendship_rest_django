@@ -68,7 +68,7 @@ def get_requests_and_friends(user_from) -> Tuple[List[User], List[User], List[Us
             outgoing_req.append(req.user_to)
 
     for req in possible_incoming_req:
-        if Friendship.objects.filter(user_from=user_from, user_to=req.user_from).exists():
+        if not Friendship.objects.filter(user_from=user_from, user_to=req.user_from).exists():
             incoming_req.append(req.user_from)
 
     return incoming_req, outgoing_req, friends

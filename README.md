@@ -17,7 +17,7 @@
 7. `docker exec -it web /bin/bash` - зайти в контейнер с приложением
 8. `python3 manage.py makemigrations` - зафиксировать миграции
 9. `python3 manage.py migrate` - применить миграции
-10. `python3 manage.py createsuperuser` - создать админа (далее следовать инструкциям джанги)
+10. `python3 manage.py createsuperuser` - создать админа (чтобы был) (далее следовать инструкциям джанги)
 11. `exit` - выйти из контейнера.
 12. перейти по `127.0.0.1:8000/api/v1/docs` - откроется страница с документацией openapi.
 13. пользоваться сервисом

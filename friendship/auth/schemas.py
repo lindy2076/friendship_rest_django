@@ -10,10 +10,10 @@ class TokenPayload(Schema):
 
 
 class Message(Schema):
-    detail: str
+    detail: str = "Example message"
 
 
 class TokenSchema(Schema):
-    access_token: str
+    access_token: str = "some.bearer.token"
     expires: datetime
-    token_type: str
+    token_type: str = "type"

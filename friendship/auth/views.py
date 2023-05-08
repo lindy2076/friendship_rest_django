@@ -17,7 +17,8 @@ auth = Router(tags=["auth"])
 @auth.post('/register', response={200: UserSchema, 409: Message})
 def register_new_user(request, data: UserRegistrationSchema=Form(...)):
     """
-    Регистрация нового юзера по логину и паролю
+    Регистрация нового юзера по логину и паролю. 
+    Логин должен быть до 24 символов и может содержать только латинские буквы и цифры.
     """
     username = data.username
     if User.objects.filter(username=username).exists():
@@ -28,7 +29,7 @@ def register_new_user(request, data: UserRegistrationSchema=Form(...)):
 @auth.post('/login', response={200: TokenSchema, 400: Message, 404: Message})
 def login(request, data: UserRegistrationSchema=Form(...)):
     """
-    Получить bearer токен
+    Получить access token
     """
     user = get_object_or_404(User, username=data.username)
     if check_password(data.password, user.password):

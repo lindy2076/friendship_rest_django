@@ -29,18 +29,23 @@ help:  ##@HELP List all possible commands
 	@echo -e "Usage: make [target] ...\n"
 	@perl -e '$(HELP_FUN)' $(MAKEFILE_LIST)
 
-# tests:  ##@Application Run pytest tests
-# 	cd $(APPLICATION_NAME) && pytest -v -x \
-# 	&& cd media && find . -name "tests" | xargs rm -rf \
-# 	&& find . -name "step*" | xargs rmdir --ignore-fail-on-non-empty
-
-# cov:  ##@Application Run pytest coverage analisys
-# 	cd $(APPLICATION_NAME) && pytest --cov=. \
-# 	&& cd media && find . -name "tests" | xargs rm -rf \
-# 	&& find . -name "step*" | xargs rmdir --ignore-fail-on-non-empty
-
 tests:  ##@Application Run pytest tests
 	cd $(APPLICATION_NAME) && pytest -v -x
 
+cov:  ##@Application Run pytest coverage analisys
+	cd $(APPLICATION_NAME) && pytest --cov=.
+
 lint:   ##@Application Run flake8 linter
 	cd $(APPLICATION_NAME) && flake8 --max-line-len=120 --exclude migrations
+
+build:  ##@Build Build application docker images and run
+	docker compose up -d --build 
+
+up:  ##@Build Run application docker containters
+	docker compose up -d
+
+down:  ##@Build Drop application docker containters
+	docker compose down
+
+logs:  ##@Application View docker container logs
+	docker compose logs
